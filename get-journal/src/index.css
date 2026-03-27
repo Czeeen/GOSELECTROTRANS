@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+/* 1. Настройка темы в стиле Tailwind v4 */
+@theme {
+  /* Фирменные цвета ГЭТ (согласно брендбуку) */
+  --color-get-red: #E30613;
+  --color-get-dark: #1D1D1B;
+  --color-get-gray: #F2F2F2;
+  --color-get-accent-border: #E30613;
+
+  /* Переменные для системных цветов */
+  --color-bg-main: #F9FAFB;
+  --color-border-subtle: #E5E7EB;
+  
+  /* Шрифты */
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+/* 2. Базовые стили для всего приложения */
+@layer base {
+  body {
+    @apply bg-[var(--color-bg-main)] text-[var(--color-get-dark)] antialiased;
+    margin: 0;
+    font-family: var(--font-sans);
+  }
+
+  /* Стилизация скроллбара для таблиц */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-full hover:bg-gray-400 transition-colors;
+  }
+}
+
+/* 3. Кастомные компоненты */
+@layer components {
+  /* Основная кнопка в стиле ГЭТ */
+  .btn-get {
+    @apply bg-get-red text-white font-bold py-2.5 px-5 rounded-md 
+           transition-all duration-200 ease-in-out 
+           hover:bg-red-700 hover:shadow-lg 
+           active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  /* Поля ввода для формы логина */
+  .input-get {
+    @apply w-full px-4 py-2 border border-gray-300 rounded-md 
+           focus:outline-none focus:ring-2 focus:ring-get-red focus:border-transparent 
+           bg-white text-get-dark transition-all;
+  }
+
+  /* Стиль для ячеек таблицы при наведении */
+  .table-row-hover {
+    @apply hover:bg-gray-50 transition-colors duration-150;
+  }
+}
+
+/* 4. Глобальные переменные (для совместимости с твоим старым кодом) */
+:root {
+  --bg: #F9FAFB;
+  --border: #E5E7EB;
+  --text-h: #1D1D1B;
+  --text: #374151;
+  --accent: #E30613;
+  --accent-border: #E30613;
+  --code-bg: #F3F4F6;
+}
