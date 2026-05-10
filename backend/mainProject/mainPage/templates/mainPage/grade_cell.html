@@ -1,0 +1,24 @@
+
+<div id="grade-cell-{{ lesson.id }}-{{ student.id }}" class="grade-cell"
+     hx-target="this" hx-swap="outerHTML">
+    <form hx-post="{% url 'update_grade' %}" hx-trigger="change">
+        {% csrf_token %}
+        <input type="hidden" name="lesson_id" value="{{ lesson.id }}">
+        <input type="hidden" name="student_id" value="{{ student.id }}">
+
+        <select name="value" class="grade-select">
+            <option value="">—</option>
+            <option value="2" {% if grade.value == 2 %}selected{% endif %}>2</option>
+            <option value="3" {% if grade.value == 3 %}selected{% endif %}>3</option>
+            <option value="4" {% if grade.value == 4 %}selected{% endif %}>4</option>
+            <option value="5" {% if grade.value == 5 %}selected{% endif %}>5</option>
+        </select>
+
+        <select name="attendance" class="attendance-select">
+            <option value="present" {% if grade.attendance == 'present' %}selected{% endif %}>Я</option>
+            <option value="absent" {% if grade.attendance == 'absent' %}selected{% endif %}>Н</option>
+            <option value="sick" {% if grade.attendance == 'sick' %}selected{% endif %}>Б</option>
+            <option value="do" {% if grade.attendance == 'do' %}selected{% endif %}>ДО</option>
+        </select>
+    </form>
+</div>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список выплат</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h2>Список выплат для группы {{ group.name }}</h2>
+
+    <!-- Форма выбора месяца и года -->
+    <form method="GET" class="row g-2 align-items-end mb-4">
+        <div class="col-auto">
+            <label class="form-label">Месяц</label>
+            <select name="month" class="form-select">
+                <option value="1"  {% if month == 1  %}selected{% endif %}>Январь</option>
+                <option value="2"  {% if month == 2  %}selected{% endif %}>Февраль</option>
+                <option value="3"  {% if month == 3  %}selected{% endif %}>Март</option>
+                <option value="4"  {% if month == 4  %}selected{% endif %}>Апрель</option>
+                <option value="5"  {% if month == 5  %}selected{% endif %}>Май</option>
+                <option value="6"  {% if month == 6  %}selected{% endif %}>Июнь</option>
+                <option value="7"  {% if month == 7  %}selected{% endif %}>Июль</option>
+                <option value="8"  {% if month == 8  %}selected{% endif %}>Август</option>
+                <option value="9"  {% if month == 9  %}selected{% endif %}>Сентябрь</option>
+                <option value="10" {% if month == 10 %}selected{% endif %}>Октябрь</option>
+                <option value="11" {% if month == 11 %}selected{% endif %}>Ноябрь</option>
+                <option value="12" {% if month == 12 %}selected{% endif %}>Декабрь</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <label class="form-label">Год</label>
+            <input type="number" name="year" value="{{ year }}" class="form-control" style="width: 100px;">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Показать</button>
+        </div>
+    </form>
+
+    <p>Всего учебных дней: {{ work_days_count }}</p>
+    {% if is_distance %}
+        <span class="badge bg-info">Дистанционная группа</span>
+    {% endif %}
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Студент</th>
+                <th>Ср. балл</th>
+                <th>Явки</th>
+                <th>Больничные</th>
+                <th>Прогулы</th>
+                <th>ДО</th>
+                <th>Стипендия (руб.)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for res in results %}
+            <tr>
+                <td>{{ res.student.last_name }} {{ res.student.first_name }}</td>
+                <td>{{ res.avg_grade }}</td>
+                <td>{{ res.present_days }}</td>
+                <td>{{ res.sick_days }}</td>
+                <td>{{ res.absent_days }}</td>
+                <td>{{ res.do_days }}</td>
+                <td>{{ res.scholarship|floatformat:2 }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="7">Нет студентов в группе</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{% url 'group_detail' group.id %}" class="btn btn-secondary">Назад</a>
+</div>
+</body>
+</html>

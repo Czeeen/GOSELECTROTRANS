@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+@theme {
+  /* === ФИРМЕННЫЕ ЦВЕТА ГЭТ (согласно брендбуку) === */
+  --color-get-red: #E30613;       /* Ализариновый красный */
+  --color-get-dark: #24305E;      /* Темно-синий (заголовки, текст) */
+  --color-get-cyan: #009CBC;      /* Темно-голубой (акценты, ссылки) */
+  --color-get-green: #AFCB37;     /* Светло-зеленый (успех, оценки 4-5) */
+  --color-get-orange: #FFBA00;    /* Желто-оранжевый (предупреждения) */
+  --color-get-aqua: #8ACBC1;      /* Бледный аквамариновый (декор) */
+  --color-get-gray: #DADADA;      /* Серый (разделители) */
+  --color-get-light-gray: #F2F2F2;/* Светло-серый (фоны таблиц, шапки) */
+  --color-get-bg: #F9FAFB;        /* Основной фон приложения */
+  --color-get-border: #E5E7EB;    /* Тонкие границы */
+
+  /* === ТИПОГРАФИКА === */
+  --font-sans: "Inter", "Verdana", system-ui, -apple-system, sans-serif;
+
+  /* === ТЕНИ И СКРУГЛЕНИЯ === */
+  --shadow-get: 0 2px 8px rgba(36, 48, 94, 0.12);
+  --shadow-get-hover: 0 4px 16px rgba(36, 48, 94, 0.16);
+  --radius-get: 8px;
+  --radius-get-lg: 12px;
+}
+
+@layer base {
+  body {
+    @apply bg-get-bg text-get-dark font-sans antialiased;
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  /* Кастомный скроллбар в корпоративном стиле */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-get-gray rounded-full hover:bg-get-dark transition-colors duration-200;
+  }
+}
+
+@layer components {
+  /* === КНОПКИ === */
+  .btn-get,
+  .btn-primary {
+    @apply bg-get-red text-white font-bold py-3 px-6 rounded-get
+           transition-all duration-200 hover:bg-red-700 active:scale-95
+           disabled:opacity-50 disabled:cursor-not-allowed shadow-get;
+  }
+  .btn-secondary {
+    @apply bg-get-cyan text-white font-bold py-2 px-5 rounded-get
+           transition-all duration-200 hover:bg-cyan-700 active:scale-95 shadow-get;
+  }
+  .btn-outline {
+    @apply border border-get-border bg-white text-get-dark font-medium py-2 px-5 rounded-get
+           transition-all duration-200 hover:bg-get-light-gray active:scale-95;
+  }
+
+  /* === ПОЛЯ ВВОДА === */
+  .input-get {
+    @apply w-full px-4 py-3 bg-white border border-get-border rounded-get
+           text-get-dark placeholder-gray-400 outline-none
+           focus:border-get-cyan focus:ring-2 focus:ring-get-cyan/20 transition-all duration-200;
+  }
+
+  /* === КАРТОЧКИ === */
+  .card-get {
+    @apply bg-white rounded-get-lg shadow-get border border-get-border p-6
+           transition-shadow duration-200 hover:shadow-get-hover;
+  }
+
+  /* === ТАБЛИЦЫ === */
+  .table-get {
+    @apply w-full border-collapse bg-white rounded-get-lg overflow-hidden shadow-get border border-get-border;
+  }
+  .table-get thead {
+    @apply bg-get-light-gray text-get-dark font-semibold text-sm;
+  }
+  .table-get th,
+  .table-get td {
+    @apply px-4 py-3 border-b border-get-border text-left;
+  }
+  .table-get tbody tr {
+    @apply hover:bg-get-bg transition-colors duration-150;
+  }
+  .table-get tbody tr:last-child td {
+    @apply border-b-0;
+  }
+
+  /* === БЕЙДЖИ И СТАТУСЫ === */
+  .badge-get {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+  .badge-success { @apply bg-green-100 text-green-800; }
+  .badge-warning { @apply bg-orange-100 text-orange-800; }
+  .badge-error   { @apply bg-red-100 text-red-800; }
+  .badge-info    { @apply bg-cyan-100 text-cyan-800; }
+}
+
+@layer utilities {
+  /* Фирменный угол 36° для декоративных элементов */
+  .angle-36 {
+    transform: skewX(-36deg);
+  }
+  
+  /* Градиентный текст (для заголовков на светлом фоне) */
+  .text-gradient-get {
+    @apply bg-gradient-to-r from-get-cyan via-get-dark to-get-red bg-clip-text text-transparent;
+  }
+
+  /* Плавное появление */
+  .fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
